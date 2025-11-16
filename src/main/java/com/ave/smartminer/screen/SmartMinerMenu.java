@@ -77,7 +77,7 @@ public class SmartMinerMenu extends AbstractContainerMenu {
     @Override
     public boolean stillValid(Player player) {
         return stillValid(ContainerLevelAccess.create(level, blockEntity.getBlockPos()), player,
-                SmartMiner.Smart_MINER_BLOCK.get());
+                SmartMiner.SMART_MINER_BLOCK.get());
     }
 
     private void addPlayerInventory(Inventory inventory) {

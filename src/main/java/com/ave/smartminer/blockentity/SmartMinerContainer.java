@@ -1,9 +1,14 @@
 package com.ave.smartminer.blockentity;
 
+import com.ave.smartminer.blockentity.handlers.InputItemHandler;
+import com.ave.smartminer.blockentity.handlers.OutputItemHandler;
+import com.ave.smartminer.blockentity.handlers.SidedItemHandler;
 import com.ave.smartminer.screen.SmartMinerMenu;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
@@ -15,7 +20,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.items.IItemHandler;
-import net.neoforged.neoforge.items.ItemStackHandler;
 
 public class SmartMinerContainer extends BlockEntity implements MenuProvider {
     public final SidedItemHandler inventory;
@@ -53,5 +57,18 @@ public class SmartMinerContainer extends BlockEntity implements MenuProvider {
     @Override
     public AbstractContainerMenu createMenu(int containerId, Inventory inventory, Player player) {
         return new SmartMinerMenu(containerId, inventory, this);
+    }
+
+    @Override
+    protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+        super.saveAdditional(tag, registries);
+        tag.put("inventory", inventory.serializeNBT(registries));
+    }
+
+    @Override
+    public void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+        super.loadAdditional(tag, registries);
+        inventory.deserializeNBT(registries, tag.getCompound("inventory"));
+        // todo inventory.getStackInSlot(2).limitSize(1);
     }
 }

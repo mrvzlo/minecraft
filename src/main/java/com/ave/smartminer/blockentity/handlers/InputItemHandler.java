@@ -1,6 +1,9 @@
-package com.ave.smartminer.blockentity;
+package com.ave.smartminer.blockentity.handlers;
 
 import net.neoforged.neoforge.items.IItemHandler;
+
+import com.ave.smartminer.blockentity.SmartMinerBlockEntity;
+
 import net.minecraft.world.item.ItemStack;
 
 public class InputItemHandler implements IItemHandler {

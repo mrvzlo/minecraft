@@ -4,7 +4,7 @@ import org.slf4j.Logger;
 
 import com.ave.smartminer.blockentity.ModBlockEntities;
 import com.ave.smartminer.blockentity.SmartMinerBlock;
-import com.ave.smartminer.blockentity.SmartMinerType;
+import com.ave.smartminer.blockentity.partblock.PartBlock;
 import com.ave.smartminer.screen.ModMenuTypes;
 import com.mojang.logging.LogUtils;
 
@@ -15,10 +15,7 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.ModContainer;
@@ -39,14 +36,17 @@ public class SmartMiner {
         public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister
                         .create(Registries.CREATIVE_MODE_TAB, MODID);
 
-        public static final DeferredBlock<Block> Smart_MINER_BLOCK = BLOCKS.register("smart_miner",
+        public static final DeferredBlock<Block> SMART_MINER_BLOCK = BLOCKS.register("smart_miner",
                         () -> new SmartMinerBlock(BlockBehaviour.Properties.of()
-                                        .strength(4F)
-                                        .requiresCorrectToolForDrops()));
+                                        .strength(0.1F)));
 
-        public static final DeferredItem<BlockItem> Smart_MINER_BLOCK_ITEM = ITEMS.registerSimpleBlockItem(
+        public static final DeferredBlock<Block> SMART_PART_BLOCK = BLOCKS.register("smart_part",
+                        () -> new PartBlock(BlockBehaviour.Properties.of()
+                                        .strength(0.1F)));
+
+        public static final DeferredItem<BlockItem> SMART_MINER_BLOCK_ITEM = ITEMS.registerSimpleBlockItem(
                         "smart_miner",
-                        Smart_MINER_BLOCK);
+                        SMART_MINER_BLOCK);
 
         public static final DeferredHolder<CreativeModeTab, CreativeModeTab> EXAMPLE_TAB = CREATIVE_MODE_TABS
                         .register("example_tab", () -> CreativeModeTab.builder()
@@ -54,9 +54,9 @@ public class SmartMiner {
                                                                                                // the title of your
                                                                                                // CreativeModeTab
                                         .withTabsBefore(CreativeModeTabs.COMBAT)
-                                        .icon(() -> Smart_MINER_BLOCK_ITEM.get().getDefaultInstance())
+                                        .icon(() -> SMART_MINER_BLOCK_ITEM.get().getDefaultInstance())
                                         .displayItems((parameters, output) -> {
-                                                output.accept(Smart_MINER_BLOCK_ITEM.get());
+                                                output.accept(SMART_MINER_BLOCK_ITEM.get());
                                         }).build());
 
         public SmartMiner(IEventBus modEventBus, ModContainer modContainer) {
@@ -73,6 +73,6 @@ public class SmartMiner {
         // Add the example block item to the building blocks tab
         private void addCreative(BuildCreativeModeTabContentsEvent event) {
                 if (event.getTabKey() == CreativeModeTabs.BUILDING_BLOCKS)
-                        event.accept(Smart_MINER_BLOCK_ITEM);
+                        event.accept(SMART_MINER_BLOCK_ITEM);
         }
 }

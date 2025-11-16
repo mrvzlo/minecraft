@@ -1,6 +1,7 @@
 package com.ave.smartminer.blockentity;
 
 import com.ave.smartminer.SmartMiner;
+import com.ave.smartminer.blockentity.partblock.PartBlockEntity;
 
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -15,7 +16,14 @@ public class ModBlockEntities {
                         .register("smart_miner",
                                         () -> BlockEntityType.Builder
                                                         .of(SmartMinerBlockEntity::new,
-                                                                        SmartMiner.Smart_MINER_BLOCK.get())
+                                                                        SmartMiner.SMART_MINER_BLOCK.get())
+                                                        .build(null));
+
+        public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<PartBlockEntity>> PART_BLOCK_ENTITY = BLOCK_ENTITIES
+                        .register("smart_part",
+                                        () -> BlockEntityType.Builder
+                                                        .of(PartBlockEntity::new,
+                                                                        SmartMiner.SMART_PART_BLOCK.get())
                                                         .build(null));
 
 }
