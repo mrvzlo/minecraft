@@ -1,5 +1,5 @@
 {
   "variants": {
-    "": { "model": "smartminer:block/smart_miner_corner" }
+    "": { "model": "smartminer:block/smart_miner" }
   }
 }
