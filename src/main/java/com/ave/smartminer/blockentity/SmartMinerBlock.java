@@ -21,6 +21,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
 
 import javax.annotation.Nullable;
 
@@ -76,19 +77,22 @@ public class SmartMinerBlock extends Block implements EntityBlock {
     }
 
     @Override
-    public void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean moving) {
-        if (level.isClientSide)
-            return;
-
+    public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
         for (int dx = -1; dx <= 1; dx++)
             for (int dz = -1; dz <= 1; dz++) {
                 BlockPos p = pos.offset(dx, 0, dz);
                 if (p.equals(pos) || level.getBlockState(p).canBeReplaced())
                     continue;
-                SmartMiner.LOGGER.info("Cannot place parts, space occupied " + dx + "," + dz);
-                level.destroyBlock(pos, true);
-                return;
+                return false;
             }
+
+        return true;
+    }
+
+    @Override
+    public void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean moving) {
+        if (level.isClientSide)
+            return;
 
         for (int dx = -1; dx <= 1; dx++)
             for (int dz = -1; dz <= 1; dz++) {
