@@ -5,29 +5,36 @@ import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.EntityBlock;
+import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.SimpleMenuProvider;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 
 import javax.annotation.Nullable;
 
 import com.ave.smartminer.SmartMiner;
-import com.ave.smartminer.blockentity.partblock.PartBlock;
 import com.ave.smartminer.blockentity.partblock.PartBlockEntity;
 
 public class SmartMinerBlock extends Block implements EntityBlock {
+    public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
 
     public SmartMinerBlock(Properties props) {
         super(props);
+        this.registerDefaultState(
+                this.stateDefinition.any()
+                        .setValue(FACING, Direction.NORTH));
     }
 
     @Nullable
@@ -37,8 +44,18 @@ public class SmartMinerBlock extends Block implements EntityBlock {
     }
 
     @Override
+    public BlockState getStateForPlacement(BlockPlaceContext ctx) {
+        return this.defaultBlockState().setValue(FACING, ctx.getHorizontalDirection().getOpposite());
+    }
+
+    @Override
     public RenderShape getRenderShape(BlockState state) {
         return RenderShape.MODEL;
+    }
+
+    @Override
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+        builder.add(FACING);
     }
 
     @Override
@@ -80,26 +97,12 @@ public class SmartMinerBlock extends Block implements EntityBlock {
                 if (p.equals(pos))
                     continue;
 
-                BlockState block = (dx == 0 || dz == 0 ? SmartMiner.SMART_MINER_EDGE : SmartMiner.SMART_MINER_CORNER)
-                        .get().defaultBlockState();
-                level.setBlock(p, block.setValue(PartBlock.FACING, getDirection(dx, dz)), 3);
+                BlockState block = SmartMiner.SMART_MINER_PART.get().defaultBlockState();
+                level.setBlock(p, block, 3);
 
                 PartBlockEntity be = (PartBlockEntity) level.getBlockEntity(p);
                 be.setControllerPos(pos);
             }
-    }
-
-    private Direction getDirection(int dx, int dz) {
-        if (dx == 1 && dz == 1)
-            return Direction.WEST;
-        if (dx == -1 && dz == 1)
-            return Direction.NORTH;
-        if (dx == 1 && dz == -1)
-            return Direction.SOUTH;
-        if (dx == -1 && dz == -1)
-            return Direction.EAST;
-
-        return dx == 0 ? Direction.EAST : Direction.NORTH;
     }
 
     @Override

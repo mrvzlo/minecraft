@@ -1,5 +1,8 @@
 {
   "variants": {
-    "": { "model": "smartminer:block/smart_miner" }
+    "facing=north": { "model": "smartminer:block/smart_miner" },
+    "facing=south": { "model": "smartminer:block/smart_miner", "y": 180 },
+    "facing=east": { "model": "smartminer:block/smart_miner", "y": 90 },
+    "facing=west": { "model": "smartminer:block/smart_miner", "y": 270 }
   }
 }

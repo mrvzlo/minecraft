@@ -23,7 +23,6 @@ public class ModBlockEntities {
                         .register("smart_miner_part",
                                         () -> BlockEntityType.Builder
                                                         .of(PartBlockEntity::new,
-                                                                        SmartMiner.SMART_MINER_CORNER.get(),
-                                                                        SmartMiner.SMART_MINER_EDGE.get())
+                                                                        SmartMiner.SMART_MINER_PART.get())
                                                         .build(null));
 }

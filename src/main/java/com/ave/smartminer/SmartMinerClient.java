@@ -2,7 +2,7 @@ package com.ave.smartminer;
 
 import com.ave.smartminer.blockentity.ModBlockEntities;
 import com.ave.smartminer.blockentity.SmartMinerBlockEntity;
-import com.ave.smartminer.renderer.MinerEdgeRenderer;
+import com.ave.smartminer.renderer.SmartMinerRenderer;
 import com.ave.smartminer.screen.ModMenuTypes;
 import com.ave.smartminer.screen.SmartMinerScreen;
 
@@ -53,6 +53,6 @@ public class SmartMinerClient {
 
     @SubscribeEvent // on the mod event bus only on the physical client
     public static void registerEntityRenderers(EntityRenderersEvent.RegisterRenderers event) {
-        event.registerBlockEntityRenderer(ModBlockEntities.PART_BLOCK_ENTITY.get(), MinerEdgeRenderer::new);
+        event.registerBlockEntityRenderer(ModBlockEntities.MINER_BLOCK_ENTITY.get(), SmartMinerRenderer::new);
     }
 }

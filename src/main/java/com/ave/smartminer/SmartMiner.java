@@ -38,15 +38,11 @@ public class SmartMiner {
 
         public static final DeferredBlock<Block> SMART_MINER_BLOCK = BLOCKS.register("smart_miner",
                         () -> new SmartMinerBlock(BlockBehaviour.Properties.of()
-                                        .strength(0.1F).noOcclusion().lightLevel((state) -> 5)));
+                                        .strength(0.1F).lightLevel((state) -> 12).noOcclusion()));
 
-        public static final DeferredBlock<Block> SMART_MINER_CORNER = BLOCKS.register("smart_miner_corner",
+        public static final DeferredBlock<Block> SMART_MINER_PART = BLOCKS.register("smart_miner_part",
                         () -> new PartBlock(BlockBehaviour.Properties.of()
-                                        .strength(0.1F).noOcclusion().lightLevel((state) -> 5), false));
-
-        public static final DeferredBlock<Block> SMART_MINER_EDGE = BLOCKS.register("smart_miner_edge",
-                        () -> new PartBlock(BlockBehaviour.Properties.of()
-                                        .strength(0.1F).noOcclusion().lightLevel((state) -> 5), true));
+                                        .strength(0.1F).noOcclusion()));
 
         public static final DeferredItem<BlockItem> SMART_MINER_BLOCK_ITEM = ITEMS.registerSimpleBlockItem(
                         "smart_miner",

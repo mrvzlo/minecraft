@@ -1,0 +1,9 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "smartminer:block/empty",
+    "1": "smartminer:block/empty",
+    "particles": "smartminer:block/empty"
+  },
+  "render_type": "cutout"
+}

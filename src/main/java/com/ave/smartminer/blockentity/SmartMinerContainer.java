@@ -69,6 +69,5 @@ public class SmartMinerContainer extends BlockEntity implements MenuProvider {
     public void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
         super.loadAdditional(tag, registries);
         inventory.deserializeNBT(registries, tag.getCompound("inventory"));
-        // todo inventory.getStackInSlot(2).limitSize(1);
     }
 }

@@ -1,0 +1,5 @@
+{
+  "variants": {
+    "": { "model": "smartminer:block/smart_miner_part" }
+  }
+}
