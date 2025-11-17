@@ -72,7 +72,7 @@ public class SmartMinerBlock extends Block implements EntityBlock {
     public ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos,
             Player player, InteractionHand hand, BlockHitResult hit) {
         SmartMinerBlockEntity blockEntity = (SmartMinerBlockEntity) level.getBlockEntity(pos);
-        player.openMenu(new SimpleMenuProvider(blockEntity, Component.literal("SmartMiner")), pos);
+        player.openMenu(new SimpleMenuProvider(blockEntity, Component.translatable("screen.smartminer.miner")), pos);
         return ItemInteractionResult.SUCCESS;
     }
 

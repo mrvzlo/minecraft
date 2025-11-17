@@ -1,8 +1,13 @@
 package com.ave.smartminer.blockentity.partblock;
 
 import com.ave.smartminer.blockentity.ModBlockEntities;
+import com.ave.smartminer.blockentity.SmartMinerBlockEntity;
+import com.ave.smartminer.blockentity.handlers.InputItemHandler;
+import com.ave.smartminer.blockentity.handlers.OutputItemHandler;
+import com.ave.smartminer.blockentity.handlers.SidedItemHandler;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
@@ -10,6 +15,9 @@ import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.neoforged.neoforge.capabilities.Capabilities;
+import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
+import net.neoforged.neoforge.items.IItemHandler;
 
 public class PartBlockEntity extends BlockEntity {
 
@@ -29,6 +37,21 @@ public class PartBlockEntity extends BlockEntity {
 
     public BlockPos getControllerPos() {
         return controllerPos;
+    }
+
+    public static void registerCaps(RegisterCapabilitiesEvent event) {
+        event.registerBlockEntity(
+                Capabilities.ItemHandler.BLOCK,
+                ModBlockEntities.PART_BLOCK_ENTITY.get(),
+                (be, direction) -> be.getItemHandler(direction, be));
+    }
+
+    public IItemHandler getItemHandler(Direction side, PartBlockEntity be) {
+        SidedItemHandler inventory = ((SmartMinerBlockEntity) be.getLevel()
+                .getBlockEntity(be.controllerPos)).inventory;
+        if (side == Direction.DOWN)
+            return new OutputItemHandler(inventory);
+        return new InputItemHandler(inventory);
     }
 
     @Override

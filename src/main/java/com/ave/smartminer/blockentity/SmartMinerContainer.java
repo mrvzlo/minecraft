@@ -10,6 +10,9 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
+import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -24,6 +27,8 @@ import net.neoforged.neoforge.items.IItemHandler;
 public class SmartMinerContainer extends BlockEntity implements MenuProvider {
     public final SidedItemHandler inventory;
     public static final int OUTPUT_SLOT = 0;
+    public static final int FUEL_SLOT = 1;
+    public static final int TYPE_SLOT = 2;
 
     public SmartMinerContainer(BlockEntityType<SmartMinerBlockEntity> entity, BlockPos pos, BlockState state,
             int size) {
@@ -69,5 +74,15 @@ public class SmartMinerContainer extends BlockEntity implements MenuProvider {
     public void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
         super.loadAdditional(tag, registries);
         inventory.deserializeNBT(registries, tag.getCompound("inventory"));
+    }
+
+    @Override
+    public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
+        return saveWithoutMetadata(registries);
+    }
+
+    @Override
+    public Packet<ClientGamePacketListener> getUpdatePacket() {
+        return ClientboundBlockEntityDataPacket.create(this);
     }
 }

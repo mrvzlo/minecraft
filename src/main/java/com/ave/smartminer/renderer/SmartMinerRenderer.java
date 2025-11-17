@@ -29,7 +29,7 @@ public class SmartMinerRenderer implements BlockEntityRenderer<SmartMinerBlockEn
             int overlay) {
 
         ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
-        if (be.type == null || be.type == SmartMinerType.Unknown)
+        if (be.type == null || be.type == SmartMinerType.Unknown || be.fuel == 0)
             return;
 
         ItemStack stack = new ItemStack(be.type.minedItem);
@@ -52,7 +52,7 @@ public class SmartMinerRenderer implements BlockEntityRenderer<SmartMinerBlockEn
         if (sx >= 1.5f || sx <= -0.5f)
             return;
         if (direction == Direction.WEST || direction == Direction.SOUTH)
-            sx = 1.5f - sx;
+            sx = 1 - sx;
         if (direction == Direction.EAST || direction == Direction.WEST) {
             float temp = sx;
             sx = sz;

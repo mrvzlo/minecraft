@@ -5,5 +5,6 @@
   "smartminer.configuration.title": "SmartMiner Configs",
   "smartminer.configuration.section.smartminer.common.toml": "SmartMiner Configs",
   "smartminer.configuration.section.smartminer.common.toml.title": "SmartMiner Configs",
-  "smartminer.configuration.items": "Item List"
+  "smartminer.configuration.items": "Item List",
+  "screen.smartminer.miner": "Smart Miner"
 }

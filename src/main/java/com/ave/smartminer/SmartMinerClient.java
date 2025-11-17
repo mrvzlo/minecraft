@@ -2,6 +2,7 @@ package com.ave.smartminer;
 
 import com.ave.smartminer.blockentity.ModBlockEntities;
 import com.ave.smartminer.blockentity.SmartMinerBlockEntity;
+import com.ave.smartminer.blockentity.partblock.PartBlockEntity;
 import com.ave.smartminer.renderer.SmartMinerRenderer;
 import com.ave.smartminer.screen.ModMenuTypes;
 import com.ave.smartminer.screen.SmartMinerScreen;
@@ -49,6 +50,7 @@ public class SmartMinerClient {
     @SubscribeEvent
     public static void registerCaps(RegisterCapabilitiesEvent event) {
         SmartMinerBlockEntity.registerCaps(event);
+        PartBlockEntity.registerCaps(event);
     }
 
     @SubscribeEvent // on the mod event bus only on the physical client

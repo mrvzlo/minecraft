@@ -15,7 +15,7 @@ import net.neoforged.neoforge.items.SlotItemHandler;
 
 public class SmartMinerMenu extends AbstractContainerMenu {
     public final Level level;
-    private final SmartMinerContainer blockEntity;
+    public final SmartMinerContainer blockEntity;
 
     public SmartMinerMenu(int containerId, Inventory inventory, FriendlyByteBuf data) {
         this(containerId, inventory,
