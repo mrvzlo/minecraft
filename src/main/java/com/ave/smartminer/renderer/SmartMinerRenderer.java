@@ -2,7 +2,6 @@ package com.ave.smartminer.renderer;
 
 import com.ave.smartminer.blockentity.SmartMinerBlock;
 import com.ave.smartminer.blockentity.SmartMinerBlockEntity;
-import com.ave.smartminer.blockentity.SmartMinerType;
 import com.mojang.blaze3d.vertex.PoseStack;
 
 import net.minecraft.client.Minecraft;
@@ -29,10 +28,10 @@ public class SmartMinerRenderer implements BlockEntityRenderer<SmartMinerBlockEn
             int overlay) {
 
         ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
-        if (be.type == null || be.type == SmartMinerType.Unknown || be.fuel == 0)
+        if (be.type == null || be.fuel == 0)
             return;
 
-        ItemStack stack = new ItemStack(be.type.minedItem);
+        ItemStack stack = new ItemStack(be.type);
         Direction direction = be.getBlockState().getValue(SmartMinerBlock.FACING);
         long gameTime = be.getLevel().getGameTime();
 

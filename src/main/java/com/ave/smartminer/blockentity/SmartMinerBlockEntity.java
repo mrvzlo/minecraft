@@ -3,7 +3,6 @@ package com.ave.smartminer.blockentity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
@@ -12,7 +11,7 @@ public class SmartMinerBlockEntity extends SmartMinerContainer {
     public static final int MAX_PROGRESS = 400;
     public static final int FUEL_CAPACITY = MAX_PROGRESS * 50;
     private static final int INCREMENT = 1;
-    public SmartMinerType type = SmartMinerType.Unknown;
+    public Item type = null;
     public int progress = 0;
     public boolean working = false;
     public int fuel = 0;
@@ -31,12 +30,12 @@ public class SmartMinerBlockEntity extends SmartMinerContainer {
 
     private boolean performAllChecks() {
         boolean updateBlock = checkNewType() || checkFuel();
-        if (type == null || type == SmartMinerType.Unknown)
+        if (type == null)
             return updateBlock;
 
         ItemStack slot = inventory.getStackInSlot(OUTPUT_SLOT);
         working = fuel > 0 && slot.getCount() < slot.getMaxStackSize()
-                && (slot.getCount() == 0 || slot.getItem() == type.minedItem);
+                && (slot.getCount() == 0 || slot.getItem() == type);
         if (!working)
             return updateBlock;
 
@@ -48,7 +47,7 @@ public class SmartMinerBlockEntity extends SmartMinerContainer {
             return updateBlock;
 
         progress = 0;
-        ItemStack toAdd = new ItemStack(type.minedItem);
+        ItemStack toAdd = new ItemStack(type);
         toAdd.setCount(slot.getCount() + INCREMENT);
         inventory.setStackInSlot(OUTPUT_SLOT, toAdd);
         setChanged();
@@ -68,9 +67,8 @@ public class SmartMinerBlockEntity extends SmartMinerContainer {
     }
 
     private boolean checkNewType() {
-        Item slot = inventory.getStackInSlot(TYPE_SLOT).getItem();
-        SmartMinerType newType = SmartMinerType.findMatch(slot);
-        if (type == newType)
+        Item newType = getCurrentFilter();
+        if (type == null && newType == null || type != null && type.equals(newType))
             return false;
 
         type = newType;
@@ -81,7 +79,6 @@ public class SmartMinerBlockEntity extends SmartMinerContainer {
     @Override
     protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
         super.saveAdditional(tag, registries);
-        tag.putString("type", type.getSerializedName());
         tag.putInt("fuel", fuel);
         tag.putInt("progress", progress);
     }
@@ -89,16 +86,19 @@ public class SmartMinerBlockEntity extends SmartMinerContainer {
     @Override
     public void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
         super.loadAdditional(tag, registries);
-        String typeStr = tag.getString("type");
-        type = SmartMinerType.findMatch(typeStr);
+        type = getCurrentFilter();
         fuel = tag.getInt("fuel");
         progress = tag.getInt("progress");
+    }
+
+    private Item getCurrentFilter() {
+        ItemStack stack = inventory.getStackInSlot(TYPE_SLOT);
+        return stack.isEmpty() ? null : stack.getItem();
     }
 
     @Override
     public void handleUpdateTag(CompoundTag tag, HolderLookup.Provider registries) {
         super.handleUpdateTag(tag, registries);
-        tag.putString("type", type.getSerializedName());
         tag.putInt("progress", progress);
         tag.putInt("fuel", fuel);
     }
