@@ -3,7 +3,7 @@ package com.ave.smartminer.blockentity.handlers;
 import com.ave.smartminer.SmartMiner;
 import com.ave.smartminer.blockentity.SmartMinerBlockEntity;
 import com.ave.smartminer.blockentity.SmartMinerContainer;
-import com.ave.smartminer.tags.ModTags;
+import com.ave.smartminer.datagen.ModTags;
 
 import net.minecraft.core.NonNullList;
 import net.minecraft.world.item.ItemStack;

@@ -1,6 +1,5 @@
-package com.ave.smartminer.tags;
+package com.ave.smartminer.datagen;
 
-import java.util.Collections;
 import java.util.concurrent.CompletableFuture;
 
 import com.ave.smartminer.SmartMiner;
@@ -26,6 +25,7 @@ public class DataGenerators {
             ModBlockTagProvider blockTags = new ModBlockTagProvider(out, lookup, helper);
             generator.addProvider(true, blockTags);
             generator.addProvider(true, new ModItemTagProvider(out, lookup, blockTags, helper));
+            generator.addProvider(event.includeServer(), new ModRecipeProvider(out, lookup));
         }
     }
 }

@@ -1,4 +1,4 @@
-package com.ave.smartminer.tags;
+package com.ave.smartminer.datagen;
 
 import java.util.concurrent.CompletableFuture;
 

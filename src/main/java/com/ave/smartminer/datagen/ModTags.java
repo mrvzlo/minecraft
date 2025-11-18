@@ -1,4 +1,4 @@
-package com.ave.smartminer.tags;
+package com.ave.smartminer.datagen;
 
 import com.ave.smartminer.SmartMiner;
 

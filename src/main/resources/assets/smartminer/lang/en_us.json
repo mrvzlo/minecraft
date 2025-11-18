@@ -1,6 +1,7 @@
 {
   "itemGroup.smartminer": "Smart Miner Mod Tab",
   "block.smartminer.smart_miner": "Smart Miner",
+  "item.smartminer.smart_miner_drill": "Drill",
 
   "smartminer.configuration.title": "SmartMiner Configs",
   "smartminer.configuration.section.smartminer.common.toml": "SmartMiner Configs",

@@ -13,6 +13,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.neoforged.bus.api.IEventBus;
@@ -48,6 +49,9 @@ public class SmartMiner {
                         "smart_miner",
                         SMART_MINER_BLOCK);
 
+        public static final DeferredItem<Item> SMART_MINER_DRILL = ITEMS.registerItem("smart_miner_drill", Item::new,
+                        new Item.Properties());
+
         public static final DeferredHolder<CreativeModeTab, CreativeModeTab> EXAMPLE_TAB = CREATIVE_MODE_TABS
                         .register("example_tab", () -> CreativeModeTab.builder()
                                         .title(Component.translatable("itemGroup.smartminer")) // The language key for
@@ -57,6 +61,7 @@ public class SmartMiner {
                                         .icon(() -> SMART_MINER_BLOCK_ITEM.get().getDefaultInstance())
                                         .displayItems((parameters, output) -> {
                                                 output.accept(SMART_MINER_BLOCK_ITEM.get());
+                                                output.accept(SMART_MINER_DRILL.get());
                                         }).build());
 
         public SmartMiner(IEventBus modEventBus, ModContainer modContainer) {
