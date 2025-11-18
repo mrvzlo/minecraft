@@ -21,7 +21,12 @@ public class SidedItemHandler extends ItemStackHandler {
         if (slot == SmartMinerContainer.OUTPUT_SLOT)
             return false;
         if (slot == SmartMinerBlockEntity.FUEL_SLOT)
-            return stack.getItem() == Items.COAL || stack.getItem() == Items.CHARCOAL;
+            return stack.getItem() == Items.COAL || stack.getItem() == Items.CHARCOAL
+                    || stack.getItem() == Items.COAL_BLOCK;
+        if (slot == SmartMinerBlockEntity.COOLANT_SLOT)
+            return stack.getItem() == Items.LAPIS_BLOCK || stack.getItem() == Items.LAPIS_LAZULI;
+        if (slot == SmartMinerBlockEntity.REDSTONE_SLOT)
+            return stack.getItem() == Items.REDSTONE_BLOCK || stack.getItem() == Items.REDSTONE;
         SmartMiner.LOGGER.info("Slot " + stack.toString() + " is valid " + stack.is(ModTags.Items.MINEABLE_TAG));
 
         if (slot == SmartMinerBlockEntity.TYPE_SLOT)

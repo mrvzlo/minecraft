@@ -30,18 +30,32 @@ public class SmartMinerScreen extends AbstractContainerScreen<SmartMinerMenu> {
 
         if (menu.blockEntity instanceof SmartMinerBlockEntity miner) {
             int fuelPart = miner.fuel * 35 / SmartMinerBlockEntity.FUEL_CAPACITY;
-            graphics.fill(x + 8, y + 50 - fuelPart, x + 24, y + 50, 0xAABB3300);
+            graphics.fill(x + 8, y + 50 - fuelPart, x + 24, y + 50, 0xAA225522);
+            int coolantPart = miner.coolant * 35 / SmartMinerBlockEntity.MAX_COOLANT;
+            graphics.fill(x + 26, y + 50 - coolantPart, x + 42, y + 50, 0xAA3333AA);
+            int redstonePart = miner.redstone * 35 / SmartMinerBlockEntity.MAX_REDSTONE;
+            graphics.fill(x + 44, y + 50 - redstonePart, x + 60, y + 50, 0xAABB2211);
+
             int progressPart = miner.progress * 16 / SmartMinerBlockEntity.MAX_PROGRESS;
             graphics.fill(x + 80, y + 55, x + 80 + progressPart, y + 58, 0xFFCCFEDD);
 
-            if (miner.fuel == 0) {
-                int tickAlpha = 128 + (int) (127 * Math.sin(System.currentTimeMillis() / 500.0));
-                int borderColor = (tickAlpha << 24) | 0xBB3300;
-                graphics.fill(x + 7, y + 51, x + 24, y + 52, borderColor);
-                graphics.fill(x + 7, y + 68, x + 24, y + 69, borderColor);
-                graphics.fill(x + 7, y + 51, x + 8, y + 69, borderColor);
-                graphics.fill(x + 24, y + 51, x + 25, y + 69, borderColor);
-            }
+            int tickAlpha = 128 + (int) (127 * Math.sin(System.currentTimeMillis() / 500.0));
+            int borderColor = (tickAlpha << 24) | 0xBB3300;
+            if (miner.fuel == 0)
+                drawBorder(graphics, x + 7, y + 51, borderColor);
+            if (miner.coolant == 0)
+                drawBorder(graphics, x + 25, y + 51, borderColor);
+            if (miner.redstone == 0)
+                drawBorder(graphics, x + 43, y + 51, borderColor);
+
         }
+    }
+
+    private void drawBorder(GuiGraphics g, int x, int y, int color) {
+        g.fill(x, y, x + 18, y + 1, color);
+        g.fill(x, y + 17, x + 18, y + 18, color);
+        g.fill(x, y, x + 1, y + 18, color);
+        g.fill(x + 17, y, x + 18, y + 18, color);
+
     }
 }

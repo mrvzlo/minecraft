@@ -29,6 +29,8 @@ public class SmartMinerContainer extends BlockEntity implements MenuProvider {
     public static final int OUTPUT_SLOT = 0;
     public static final int FUEL_SLOT = 1;
     public static final int TYPE_SLOT = 2;
+    public static final int COOLANT_SLOT = 3;
+    public static final int REDSTONE_SLOT = 4;
 
     public SmartMinerContainer(BlockEntityType<SmartMinerBlockEntity> entity, BlockPos pos, BlockState state,
             int size) {

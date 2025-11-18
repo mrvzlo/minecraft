@@ -1,7 +1,6 @@
 package com.ave.smartminer.datagen;
 
 import java.util.concurrent.CompletableFuture;
-import java.util.function.Consumer;
 
 import com.ave.smartminer.SmartMiner;
 

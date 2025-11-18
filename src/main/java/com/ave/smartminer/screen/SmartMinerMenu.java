@@ -30,8 +30,10 @@ public class SmartMinerMenu extends AbstractContainerMenu {
         addPlayerInventory(inventory);
         addPlayerHotbar(inventory);
         this.addSlot(new SlotItemHandler(this.blockEntity.inventory, SmartMinerContainer.OUTPUT_SLOT, 80, 37));
-        this.addSlot(new SlotItemHandler(this.blockEntity.inventory, 1, 8, 52));
-        this.addSlot(new SlotItemHandler(this.blockEntity.inventory, 2, 152, 52));
+        this.addSlot(new SlotItemHandler(this.blockEntity.inventory, SmartMinerContainer.FUEL_SLOT, 8, 52));
+        this.addSlot(new SlotItemHandler(this.blockEntity.inventory, SmartMinerContainer.TYPE_SLOT, 152, 52));
+        this.addSlot(new SlotItemHandler(this.blockEntity.inventory, SmartMinerContainer.COOLANT_SLOT, 26, 52));
+        this.addSlot(new SlotItemHandler(this.blockEntity.inventory, SmartMinerContainer.REDSTONE_SLOT, 44, 52));
     }
 
     @Override
@@ -43,7 +45,7 @@ public class SmartMinerMenu extends AbstractContainerMenu {
         int VANILLA_SLOT_COUNT = HOTBAR_SLOT_COUNT + PLAYER_INVENTORY_SLOT_COUNT;
         int VANILLA_FIRST_SLOT_INDEX = 0;
         int TE_INVENTORY_FIRST_SLOT_INDEX = VANILLA_FIRST_SLOT_INDEX + VANILLA_SLOT_COUNT;
-        int TE_INVENTORY_SLOT_COUNT = 3;
+        int TE_INVENTORY_SLOT_COUNT = 5;
 
         Slot sourceSlot = slots.get(pIndex);
         if (sourceSlot == null || !sourceSlot.hasItem())
