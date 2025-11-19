@@ -1,0 +1,6 @@
+{
+  "work_sound": {
+    "subtitle": "sounds.smartminer.work_sound",
+    "sounds": ["smartminer:work_sound"]
+  }
+}

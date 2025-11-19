@@ -6,6 +6,7 @@ import com.ave.smartminer.blockentity.ModBlockEntities;
 import com.ave.smartminer.blockentity.SmartMinerBlock;
 import com.ave.smartminer.blockentity.partblock.PartBlock;
 import com.ave.smartminer.screen.ModMenuTypes;
+import com.ave.smartminer.sound.ModSounds;
 import com.mojang.logging.LogUtils;
 
 import net.minecraft.core.registries.Registries;
@@ -70,6 +71,7 @@ public class SmartMiner {
                 CREATIVE_MODE_TABS.register(modEventBus);
                 ModBlockEntities.BLOCK_ENTITIES.register(modEventBus);
                 ModMenuTypes.register(modEventBus);
+                ModSounds.SOUND_EVENTS.register(modEventBus);
 
                 modEventBus.addListener(this::addCreative);
                 modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
