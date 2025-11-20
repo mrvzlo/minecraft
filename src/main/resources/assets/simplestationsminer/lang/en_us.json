@@ -3,10 +3,14 @@
   "block.simplestationsminer.miner": "Mining station",
   "item.simplestationsminer.miner_drill": "Drill",
 
-  "simplestationsminer.configuration.title": "Simple Stations Miner Configs",
-  "simplestationsminer.configuration.section.simplestationsminer.common.toml": "Simple Stations Miner Configs",
-  "simplestationsminer.configuration.section.simplestationsminer.common.toml.title": "Simple Stations Miner Configs",
-  "simplestationsminer.configuration.items": "Item list",
+  "simplestationsminer.configuration.title": "Configs",
+  "simplestationsminer.configuration.consume": "RF consume per tick",
+  "simplestationsminer.configuration.work_time": "Work time in ticks",
+  "simplestationsminer.configuration.max_coolant": "Max coolant storage",
+  "simplestationsminer.configuration.max_catalyst": "Max catalyst storage",
+  "simplestationsminer.configuration.fuel_rf": "RF gain from signle coal",
+  "simplestationsminer.configuration.fuel_max": "Energy storage capacity in RF",
+
   "screen.simplestationsminer.miner": "Mining station",
   "screen.simplestationsminer.recipes": "Miner recipes",
   "screen.simplestationsminer.fuel": "Energy",

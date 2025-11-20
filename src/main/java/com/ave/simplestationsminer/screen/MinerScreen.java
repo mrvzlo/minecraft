@@ -3,6 +3,7 @@ package com.ave.simplestationsminer.screen;
 import java.util.Arrays;
 import java.util.List;
 
+import com.ave.simplestationsminer.Config;
 import com.ave.simplestationsminer.SimpleStationsMiner;
 import com.ave.simplestationsminer.blockentity.MinerBlockEntity;
 import com.ave.simplestationsminer.uihelpers.NumToString;
@@ -37,28 +38,28 @@ public class MinerScreen extends AbstractContainerScreen<MinerMenu> {
 
         if (UIBlocks.FUEL_BAR.isHovered(mouseX - startX, mouseY - startY)) {
             String fuelPart = NumToString.parse(miner.fuel.getEnergyStored(), "RF / ")
-                    + NumToString.parse(MinerBlockEntity.FUEL_CAPACITY, "RF");
+                    + NumToString.parse(Config.FUEL_CAPACITY.get(), "RF");
             List<Component> fuelText = Arrays.asList(Component.translatable("screen.simplestationsminer.fuel"),
                     Component.literal(fuelPart));
             gfx.renderComponentTooltip(font, fuelText, mouseX, mouseY);
         }
 
         if (UIBlocks.COOL_BAR.isHovered(mouseX - startX, mouseY - startY)) {
-            String coolantPart = miner.coolant + " / " + MinerBlockEntity.MAX_COOLANT;
+            String coolantPart = miner.coolant + " / " + Config.MAX_COOLANT.get();
             List<Component> coolantText = Arrays.asList(Component.translatable("screen.simplestationsminer.coolant"),
                     Component.literal(coolantPart));
             gfx.renderComponentTooltip(font, coolantText, mouseX, mouseY);
         }
 
         if (UIBlocks.CATA_BAR.isHovered(mouseX - startX, mouseY - startY)) {
-            String redstonePart = miner.redstone + " / " + MinerBlockEntity.MAX_REDSTONE;
+            String redstonePart = miner.redstone + " / " + Config.MAX_CATALYST.get();
             List<Component> redstoneText = Arrays.asList(Component.translatable("screen.simplestationsminer.catalysis"),
                     Component.literal(redstonePart));
             gfx.renderComponentTooltip(font, redstoneText, mouseX, mouseY);
         }
 
         if (miner.progress > 0 && UIBlocks.PROGRESS_BAR.isHovered(mouseX - startX, mouseY - startY)) {
-            int progressPart = (int) Math.ceil(100 * miner.progress / miner.MAX_PROGRESS);
+            int progressPart = (int) Math.ceil(100 * miner.progress / Config.MAX_PROGRESS.get());
             gfx.renderTooltip(font, Component.literal(progressPart + "%"), mouseX, mouseY);
         }
 
@@ -85,7 +86,7 @@ public class MinerScreen extends AbstractContainerScreen<MinerMenu> {
 
         int tickAlpha = 96 + (int) (63 * Math.sin(System.currentTimeMillis() / 400.0));
         int borderColor = (tickAlpha << 24) | 0xFF0000;
-        float progressPart = miner.progress / MinerBlockEntity.MAX_PROGRESS;
+        float progressPart = miner.progress / Config.MAX_PROGRESS.get();
         UIBlocks.PROGRESS_BAR.drawProgressToRight(graphics, x, y, progressPart, 0xFFCCFEDD);
 
         if (miner.invalidDepth) {
@@ -93,13 +94,13 @@ public class MinerScreen extends AbstractContainerScreen<MinerMenu> {
             return;
         }
 
-        float fuelPart = (float) miner.fuel.getEnergyStored() / MinerBlockEntity.FUEL_CAPACITY;
+        float fuelPart = (float) miner.fuel.getEnergyStored() / Config.FUEL_CAPACITY.get();
         UIBlocks.FUEL_BAR.drawProgressToTop(graphics, x, y, fuelPart, 0xAA225522);
 
-        float coolantPart = (float) miner.coolant / MinerBlockEntity.MAX_COOLANT;
+        float coolantPart = (float) miner.coolant / Config.MAX_COOLANT.get();
         UIBlocks.COOL_BAR.drawProgressToTop(graphics, x, y, coolantPart, 0xAA3333AA);
 
-        float redstonePart = (float) miner.redstone / MinerBlockEntity.MAX_REDSTONE;
+        float redstonePart = (float) miner.redstone / Config.MAX_CATALYST.get();
         UIBlocks.CATA_BAR.drawProgressToTop(graphics, x, y, redstonePart, 0xAABB2211);
 
         if (fuelPart == 0)

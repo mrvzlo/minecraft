@@ -1,5 +1,6 @@
 package com.ave.simplestationsminer.screen;
 
+import com.ave.simplestationsminer.Config;
 import com.ave.simplestationsminer.SimpleStationsMiner;
 import com.ave.simplestationsminer.blockentity.MinerBlockEntity;
 import com.ave.simplestationsminer.blockentity.ModContainer;
@@ -101,7 +102,7 @@ public class MinerMenu extends AbstractContainerMenu {
 
             @Override
             public void set(int value) {
-                miner.fuel = new EnergyStorage(MinerBlockEntity.FUEL_CAPACITY, 0, 0, value);
+                miner.fuel = new EnergyStorage(Config.FUEL_CAPACITY.get(), 0, 0, value);
             }
         });
     }

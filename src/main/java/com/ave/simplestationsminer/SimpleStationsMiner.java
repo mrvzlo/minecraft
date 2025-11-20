@@ -71,6 +71,7 @@ public class SimpleStationsMiner {
                                         }).build());
 
         public SimpleStationsMiner(IEventBus modEventBus, ModContainer modContainer) {
+                modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
                 BLOCKS.register(modEventBus);
                 ITEMS.register(modEventBus);
                 CREATIVE_MODE_TABS.register(modEventBus);
@@ -80,7 +81,6 @@ public class SimpleStationsMiner {
 
                 modEventBus.addListener(this::addCreative);
                 modEventBus.addListener(this::registerCapabilities);
-                modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
         }
 
         // Add the example block item to the building blocks tab

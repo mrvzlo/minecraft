@@ -3,10 +3,14 @@
   "block.simplestationsminer.miner": "Шахтёрская станция",
   "item.simplestationsminer.miner_drill": "Бур",
 
-  "simplestationsminer.configuration.title": "simplestationsminer Configs",
-  "simplestationsminer.configuration.section.simplestationsminer.common.toml": "simplestationsminer Configs",
-  "simplestationsminer.configuration.section.simplestationsminer.common.toml.title": "simplestationsminer Configs",
-  "simplestationsminer.configuration.items": "Список предметов",
+  "simplestationsminer.configuration.title": "Настройки",
+  "simplestationsminer.configuration.consume": "Потребление RF в тик",
+  "simplestationsminer.configuration.work_time": "Время работы в тиках",
+  "simplestationsminer.configuration.max_coolant": "Лимит охлаждения",
+  "simplestationsminer.configuration.max_catalyst": "Лимит катализаторов",
+  "simplestationsminer.configuration.fuel_rf": "Количество RF с 1 угля",
+  "simplestationsminer.configuration.fuel_max": "Лимит хранения RF",
+
   "screen.simplestationsminer.miner": "Шахтёрская станция",
   "screen.simplestationsminer.recipes": "Рецепты шахты",
   "screen.simplestationsminer.fuel": "Энергия",
