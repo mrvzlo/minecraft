@@ -26,7 +26,6 @@ public class SidedItemHandler extends ItemStackHandler {
             return stack.getItem() == Items.LAPIS_BLOCK || stack.getItem() == Items.LAPIS_LAZULI;
         if (slot == SmartMinerBlockEntity.REDSTONE_SLOT)
             return stack.getItem() == Items.REDSTONE_BLOCK || stack.getItem() == Items.REDSTONE;
-        SmartMiner.LOGGER.info("Slot " + stack.toString() + " is valid " + stack.is(ModTags.Items.MINEABLE_TAG));
 
         if (slot == SmartMinerBlockEntity.TYPE_SLOT)
             return stack.is(ModTags.Items.MINEABLE_TAG);

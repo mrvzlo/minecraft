@@ -38,8 +38,6 @@ public class SmartMinerClient {
     @SubscribeEvent
     static void onClientSetup(FMLClientSetupEvent event) {
         // Some client setup code
-        SmartMiner.LOGGER.info("HELLO FROM CLIENT SETUP");
-        SmartMiner.LOGGER.info("MINECRAFT NAME >> {}", Minecraft.getInstance().getUser().getName());
     }
 
     @SubscribeEvent

@@ -5,6 +5,8 @@ import java.util.List;
 
 import com.ave.smartminer.SmartMiner;
 import com.ave.smartminer.blockentity.SmartMinerBlockEntity;
+import com.ave.smartminer.uihelpers.NumToString;
+import com.ave.smartminer.uihelpers.UIBlocks;
 import com.mojang.blaze3d.systems.RenderSystem;
 
 import net.minecraft.client.gui.GuiGraphics;
@@ -30,51 +32,43 @@ public class SmartMinerScreen extends AbstractContainerScreen<SmartMinerMenu> {
         if (!(menu.blockEntity instanceof SmartMinerBlockEntity miner))
             return;
 
-        String fuelPart = miner.fuel.getEnergyStored() + " / " + SmartMinerBlockEntity.FUEL_CAPACITY;
-        List<Component> fuelText = Arrays.asList(Component.translatable("screen.smartminer.fuel"),
-                Component.literal(fuelPart));
-        this.renderTooltip(gfx, mouseX, mouseY, 7, 14, 18, 37, fuelText);
+        int startX = (width - imageWidth) / 2;
+        int startY = (height - imageHeight) / 2;
 
-        String coolantPart = miner.coolant + " / " + SmartMinerBlockEntity.MAX_COOLANT;
-        List<Component> coolantText = Arrays.asList(Component.translatable("screen.smartminer.coolant"),
-                Component.literal(coolantPart));
-        this.renderTooltip(gfx, mouseX, mouseY, 25, 14, 18, 37, coolantText);
-
-        String redstonePart = miner.redstone + " / " + SmartMinerBlockEntity.MAX_REDSTONE;
-        List<Component> redstoneText = Arrays.asList(Component.translatable("screen.smartminer.catalysis"),
-                Component.literal(redstonePart));
-        this.renderTooltip(gfx, mouseX, mouseY, 43, 14, 18, 37, redstoneText);
-
-        if (miner.progress > 0) {
-            int progressPart = 100 * miner.progress / miner.MAX_PROGRESS;
-            List<Component> progressText = Arrays.asList(Component.literal(progressPart + "%"));
-            this.renderTooltip(gfx, mouseX, mouseY, 79, 54, 18, 5, progressText);
+        if (UIBlocks.FUEL_BAR.isHovered(mouseX - startX, mouseY - startY)) {
+            String fuelPart = NumToString.parse(miner.fuel.getEnergyStored(), "RF / ")
+                    + NumToString.parse(SmartMinerBlockEntity.FUEL_CAPACITY, "RF");
+            List<Component> fuelText = Arrays.asList(Component.translatable("screen.smartminer.fuel"),
+                    Component.literal(fuelPart));
+            gfx.renderComponentTooltip(font, fuelText, mouseX, mouseY);
         }
 
-        if (miner.type == null) {
-            List<Component> filterText = Arrays.asList(Component.translatable("screen.smartminer.filter"));
-            this.renderTooltip(gfx, mouseX, mouseY, 151, 51, 18, 18, filterText);
+        if (UIBlocks.COOL_BAR.isHovered(mouseX - startX, mouseY - startY)) {
+            String coolantPart = miner.coolant + " / " + SmartMinerBlockEntity.MAX_COOLANT;
+            List<Component> coolantText = Arrays.asList(Component.translatable("screen.smartminer.coolant"),
+                    Component.literal(coolantPart));
+            gfx.renderComponentTooltip(font, coolantText, mouseX, mouseY);
         }
 
-        if (miner.invalidDepth) {
-            List<Component> filterText = Arrays.asList(Component.translatable("screen.smartminer.depthError"));
-            this.renderTooltip(gfx, mouseX, mouseY, 133, 7, 36, 8, filterText);
+        if (UIBlocks.CATA_BAR.isHovered(mouseX - startX, mouseY - startY)) {
+            String redstonePart = miner.redstone + " / " + SmartMinerBlockEntity.MAX_REDSTONE;
+            List<Component> redstoneText = Arrays.asList(Component.translatable("screen.smartminer.catalysis"),
+                    Component.literal(redstonePart));
+            gfx.renderComponentTooltip(font, redstoneText, mouseX, mouseY);
         }
-    }
 
-    private void renderTooltip(GuiGraphics gfx, int mouseX, int mouseY, int left, int top, int w, int h,
-            List<Component> text) {
-        int x = (width - imageWidth) / 2;
-        int y = (height - imageHeight) / 2;
-        left += x;
-        top += y;
-        int right = left + w;
-        int bottom = h + top;
+        if (miner.progress > 0 && UIBlocks.PROGRESS_BAR.isHovered(mouseX - startX, mouseY - startY)) {
+            int progressPart = (int) Math.ceil(100 * miner.progress / miner.MAX_PROGRESS);
+            gfx.renderTooltip(font, Component.literal(progressPart + "%"), mouseX, mouseY);
+        }
 
-        if (mouseX < left || mouseX >= right || mouseY < top || mouseY >= bottom)
-            return;
+        if (miner.type == null && UIBlocks.FILTER_SLOT.isHovered(mouseX - startX, mouseY - startY)) {
+            gfx.renderTooltip(font, Component.translatable("screen.smartminer.filter"), mouseX, mouseY);
+        }
 
-        gfx.renderComponentTooltip(font, text, mouseX, mouseY);
+        if (miner.invalidDepth && UIBlocks.ERROR.isHovered(mouseX - startX, mouseY - startY)) {
+            gfx.renderTooltip(font, Component.translatable("screen.smartminer.depthError"), mouseX, mouseY);
+        }
     }
 
     @Override
@@ -91,33 +85,28 @@ public class SmartMinerScreen extends AbstractContainerScreen<SmartMinerMenu> {
 
         int tickAlpha = 96 + (int) (63 * Math.sin(System.currentTimeMillis() / 400.0));
         int borderColor = (tickAlpha << 24) | 0xFF0000;
-        int progressPart = miner.progress * 16 / SmartMinerBlockEntity.MAX_PROGRESS;
-        graphics.fill(x + 80, y + 55, x + 80 + progressPart, y + 58, 0xFFCCFEDD);
+        float progressPart = miner.progress / SmartMinerBlockEntity.MAX_PROGRESS;
+        UIBlocks.PROGRESS_BAR.drawProgressToRight(graphics, x, y, progressPart, 0xFFCCFEDD);
 
         if (miner.invalidDepth) {
-            graphics.drawString(font, "Y > 20", x + 138, y + 7, borderColor, false);
+            UIBlocks.ERROR.drawText(graphics, x, y, font, borderColor, "Y > 20");
             return;
         }
 
-        int fuelPart = miner.fuel.getEnergyStored() * 35 / SmartMinerBlockEntity.FUEL_CAPACITY;
-        graphics.fill(x + 8, y + 50 - fuelPart, x + 24, y + 50, 0xAA225522);
-        int coolantPart = miner.coolant * 35 / SmartMinerBlockEntity.MAX_COOLANT;
-        graphics.fill(x + 26, y + 50 - coolantPart, x + 42, y + 50, 0xAA3333AA);
-        int redstonePart = miner.redstone * 35 / SmartMinerBlockEntity.MAX_REDSTONE;
-        graphics.fill(x + 44, y + 50 - redstonePart, x + 60, y + 50, 0xAABB2211);
+        float fuelPart = (float) miner.fuel.getEnergyStored() / SmartMinerBlockEntity.FUEL_CAPACITY;
+        UIBlocks.FUEL_BAR.drawProgressToTop(graphics, x, y, fuelPart, 0xAA225522);
+
+        float coolantPart = (float) miner.coolant / SmartMinerBlockEntity.MAX_COOLANT;
+        UIBlocks.COOL_BAR.drawProgressToTop(graphics, x, y, coolantPart, 0xAA3333AA);
+
+        float redstonePart = (float) miner.redstone / SmartMinerBlockEntity.MAX_REDSTONE;
+        UIBlocks.CATA_BAR.drawProgressToTop(graphics, x, y, redstonePart, 0xAABB2211);
 
         if (fuelPart == 0)
-            drawBorder(graphics, x + 8, y + 52, borderColor);
+            UIBlocks.FUEL_SLOT.drawBorder(graphics, x, y, borderColor);
         if (coolantPart == 0)
-            drawBorder(graphics, x + 26, y + 52, borderColor);
+            UIBlocks.COOL_SLOT.drawBorder(graphics, x, y, borderColor);
         if (redstonePart == 0)
-            drawBorder(graphics, x + 44, y + 52, borderColor);
-    }
-
-    private void drawBorder(GuiGraphics g, int x, int y, int color) {
-        g.fill(x, y, x + 16, y + 1, color);
-        g.fill(x, y + 15, x + 16, y + 16, color);
-        g.fill(x, y, x + 1, y + 16, color);
-        g.fill(x + 15, y, x + 16, y + 16, color);
+            UIBlocks.CATA_SLOT.drawBorder(graphics, x, y, borderColor);
     }
 }

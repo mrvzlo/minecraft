@@ -6,6 +6,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -17,16 +18,21 @@ public class SmartMinerBlockEntity extends SmartMinerContainer {
     public static final int MAX_PROGRESS = 400;
     public static final int MAX_COOLANT = 20;
     public static final int MAX_REDSTONE = 20;
-    private static final int FUEL_PER_COAL = MAX_PROGRESS * 3 * ENERGY_PER_TICK;
+    public static final int ENERGY_PER_PROGRESS = MAX_PROGRESS * ENERGY_PER_TICK;
+
+    private static final int FUEL_PER_COAL = ENERGY_PER_PROGRESS * 3;
     public static final int FUEL_CAPACITY = FUEL_PER_COAL * 10;
     private static final int INCREMENT = 1;
     public EnergyStorage fuel = new EnergyStorage(FUEL_CAPACITY);
     public Item type = null;
-    public int progress = 0;
+    public float progress = 0;
     public int coolant = 0;
     public int redstone = 0;
     public boolean working = false;
     public boolean invalidDepth = false;
+
+    private float speed = 1;
+    private int outputSize = 1;
 
     public SmartMinerBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.MINER_BLOCK_ENTITY.get(), pos, state, 5);
@@ -51,7 +57,7 @@ public class SmartMinerBlockEntity extends SmartMinerContainer {
         if (type == null || !working)
             return;
 
-        progress++;
+        progress += speed;
         fuel.extractEnergy(ENERGY_PER_TICK, false);
         playSound();
 
@@ -61,7 +67,7 @@ public class SmartMinerBlockEntity extends SmartMinerContainer {
         coolant--;
         redstone--;
         ItemStack toAdd = new ItemStack(type);
-        toAdd.setCount(slot.getCount() + (isCheap() ? INCREMENT + 1 : INCREMENT));
+        toAdd.setCount(slot.getCount() + outputSize);
         inventory.setStackInSlot(OUTPUT_SLOT, toAdd);
         setChanged();
     }
@@ -73,7 +79,7 @@ public class SmartMinerBlockEntity extends SmartMinerContainer {
             return false;
         if (fuel.getEnergyStored() < ENERGY_PER_TICK)
             return false;
-        if (slot.getCount() >= slot.getMaxStackSize())
+        if (slot.getCount() + outputSize > slot.getMaxStackSize())
             return false;
         if (slot.getCount() == 0)
             return true;
@@ -120,9 +126,33 @@ public class SmartMinerBlockEntity extends SmartMinerContainer {
         };
     }
 
-    private boolean isCheap() {
-        return type.equals(Items.SAND) || type.equals(Items.STONE) || type.equals(Items.GRAVEL)
-                || type.equals(Items.IRON_ORE);
+    private int getOutputSize() {
+        return getOutputSize(type);
+    }
+
+    public static int getOutputSize(Item item) {
+        boolean isCheap = item.equals(Items.SAND) || item.equals(Items.STONE) || item.equals(Items.GRAVEL)
+                || item.equals(Items.COAL_ORE) || item.equals(Items.DEEPSLATE_COAL_ORE)
+                || item.equals(Items.COPPER_ORE) || item.equals(Items.DEEPSLATE_COPPER_ORE)
+                || item.equals(Items.NETHER_QUARTZ_ORE);
+
+        return isCheap ? INCREMENT + 1 : INCREMENT;
+    }
+
+    private int getSpeedMod() {
+        return getSpeedMod(type);
+    }
+
+    public static int getSpeedMod(Item item) {
+        ItemStack stack = new ItemStack(item);
+        if (stack.is(ItemTags.DIAMOND_ORES))
+            return 5;
+        if (stack.is(ItemTags.EMERALD_ORES))
+            return 6;
+        if (item.equals(Items.ANCIENT_DEBRIS))
+            return 20;
+
+        return 1;
     }
 
     private void checkNewType() {
@@ -132,6 +162,8 @@ public class SmartMinerBlockEntity extends SmartMinerContainer {
 
         type = newType;
         progress = 0;
+        speed = 1f / getSpeedMod();
+        outputSize = getOutputSize();
         level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), 3);
     }
 
@@ -152,14 +184,16 @@ public class SmartMinerBlockEntity extends SmartMinerContainer {
         super.loadAdditional(tag, registries);
         type = getCurrentFilter();
         fuel = new EnergyStorage(FUEL_CAPACITY, FUEL_CAPACITY, FUEL_CAPACITY, tag.getInt("fuel"));
-        progress = tag.getInt("progress");
+        progress = tag.getFloat("progress");
         coolant = tag.getInt("coolant");
         redstone = tag.getInt("redstone");
+        speed = 1f / getSpeedMod();
+        outputSize = getOutputSize();
     }
 
     private void saveAll(CompoundTag tag) {
         tag.putInt("fuel", fuel.getEnergyStored());
-        tag.putInt("progress", progress);
+        tag.putFloat("progress", progress);
         tag.putInt("coolant", coolant);
         tag.putInt("redstone", redstone);
     }

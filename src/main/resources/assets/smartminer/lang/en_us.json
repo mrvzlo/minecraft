@@ -8,6 +8,7 @@
   "smartminer.configuration.section.smartminer.common.toml.title": "SmartMiner Configs",
   "smartminer.configuration.items": "Item List",
   "screen.smartminer.miner": "Smart Miner",
+  "screen.smartminer.recipes": "Smart Miner Recipes",
   "screen.smartminer.fuel": "Fuel",
   "screen.smartminer.coolant": "Coolant",
   "screen.smartminer.catalysis": "Catalysis",

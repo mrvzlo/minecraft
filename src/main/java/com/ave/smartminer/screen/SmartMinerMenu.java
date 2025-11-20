@@ -3,6 +3,7 @@ package com.ave.smartminer.screen;
 import com.ave.smartminer.SmartMiner;
 import com.ave.smartminer.blockentity.SmartMinerBlockEntity;
 import com.ave.smartminer.blockentity.SmartMinerContainer;
+import com.ave.smartminer.uihelpers.UIBlocks;
 
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
@@ -32,11 +33,16 @@ public class SmartMinerMenu extends AbstractContainerMenu {
 
         addPlayerInventory(inventory);
         addPlayerHotbar(inventory);
-        addSlot(new SlotItemHandler(blockEntity.inventory, SmartMinerContainer.OUTPUT_SLOT, 80, 37));
-        addSlot(new SlotItemHandler(blockEntity.inventory, SmartMinerContainer.FUEL_SLOT, 8, 52));
-        addSlot(new SlotItemHandler(blockEntity.inventory, SmartMinerContainer.TYPE_SLOT, 152, 52));
-        addSlot(new SlotItemHandler(blockEntity.inventory, SmartMinerContainer.COOLANT_SLOT, 26, 52));
-        addSlot(new SlotItemHandler(blockEntity.inventory, SmartMinerContainer.REDSTONE_SLOT, 44, 52));
+        addSlot(new SlotItemHandler(blockEntity.inventory, SmartMinerContainer.OUTPUT_SLOT, UIBlocks.OUT_SLOT.left,
+                UIBlocks.OUT_SLOT.top));
+        addSlot(new SlotItemHandler(blockEntity.inventory, SmartMinerContainer.FUEL_SLOT, UIBlocks.FUEL_SLOT.left,
+                UIBlocks.FUEL_SLOT.top));
+        addSlot(new SlotItemHandler(blockEntity.inventory, SmartMinerContainer.TYPE_SLOT, UIBlocks.FILTER_SLOT.left,
+                UIBlocks.FILTER_SLOT.top));
+        addSlot(new SlotItemHandler(blockEntity.inventory, SmartMinerContainer.COOLANT_SLOT, UIBlocks.COOL_SLOT.left,
+                UIBlocks.COOL_SLOT.top));
+        addSlot(new SlotItemHandler(blockEntity.inventory, SmartMinerContainer.REDSTONE_SLOT, UIBlocks.CATA_SLOT.left,
+                UIBlocks.CATA_SLOT.top));
 
         if (blockEntity instanceof SmartMinerBlockEntity miner)
             addDataSlots(miner);
@@ -68,7 +74,7 @@ public class SmartMinerMenu extends AbstractContainerMenu {
         addDataSlot(new DataSlot() {
             @Override
             public int get() {
-                return miner.progress;
+                return (int) miner.progress;
             }
 
             @Override
