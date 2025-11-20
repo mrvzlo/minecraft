@@ -16,7 +16,7 @@
       ],
       "vmArgs": [
         "@D:\\Sharp\\minecraft\\build\\moddev\\clientRunVmArgs.txt",
-        "-Dfml.modFolders\u003dsmartminer%%D:\\Sharp\\minecraft\\bin\\main"
+        "-Dfml.modFolders\u003dsimplestationsminer%%D:\\Sharp\\minecraft\\bin\\main"
       ],
       "cwd": "${workspaceFolder}\\run",
       "env": {},
@@ -38,7 +38,7 @@
       ],
       "vmArgs": [
         "@D:\\Sharp\\minecraft\\build\\moddev\\dataRunVmArgs.txt",
-        "-Dfml.modFolders\u003dsmartminer%%D:\\Sharp\\minecraft\\bin\\main"
+        "-Dfml.modFolders\u003dsimplestationsminer%%D:\\Sharp\\minecraft\\bin\\main"
       ],
       "cwd": "${workspaceFolder}\\run",
       "env": {},
@@ -60,7 +60,7 @@
       ],
       "vmArgs": [
         "@D:\\Sharp\\minecraft\\build\\moddev\\gameTestServerRunVmArgs.txt",
-        "-Dfml.modFolders\u003dsmartminer%%D:\\Sharp\\minecraft\\bin\\main"
+        "-Dfml.modFolders\u003dsimplestationsminer%%D:\\Sharp\\minecraft\\bin\\main"
       ],
       "cwd": "${workspaceFolder}\\run",
       "env": {},
@@ -82,7 +82,7 @@
       ],
       "vmArgs": [
         "@D:\\Sharp\\minecraft\\build\\moddev\\serverRunVmArgs.txt",
-        "-Dfml.modFolders\u003dsmartminer%%D:\\Sharp\\minecraft\\bin\\main"
+        "-Dfml.modFolders\u003dsimplestationsminer%%D:\\Sharp\\minecraft\\bin\\main"
       ],
       "cwd": "${workspaceFolder}\\run",
       "env": {},

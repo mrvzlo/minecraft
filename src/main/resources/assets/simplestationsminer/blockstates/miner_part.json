@@ -1,0 +1,5 @@
+{
+  "variants": {
+    "": { "model": "simplestationsminer:block/miner_part" }
+  }
+}

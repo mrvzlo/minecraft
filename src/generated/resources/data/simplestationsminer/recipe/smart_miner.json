@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "item": "minecraft:minecart"
+    },
+    "D": {
+      "item": "simplestationsminer:miner_drill"
+    },
+    "H": {
+      "item": "minecraft:hopper"
+    },
+    "R": {
+      "item": "minecraft:powered_rail"
+    }
+  },
+  "pattern": ["DRD", "RCR", "HRH"],
+  "result": {
+    "count": 1,
+    "id": "simplestationsminer:miner"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "simplestationsminer:block/empty",
+    "1": "simplestationsminer:block/empty",
+    "particles": "simplestationsminer:block/empty"
+  },
+  "render_type": "cutout"
+}

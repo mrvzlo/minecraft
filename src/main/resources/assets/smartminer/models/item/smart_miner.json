@@ -1,8 +1,0 @@
-{
-  "parent": "smartminer:custom/smart_miner_cran",
-  "textures": {
-    "all": "smartminer:block/smart_miner",
-    "1": "smartminer:block/smart_miner"
-  },
-  "render_type": "cutout"
-}

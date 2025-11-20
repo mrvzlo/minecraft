@@ -1,0 +1,17 @@
+{
+  "itemGroup.simplestationsminer": "Simple Mining Stations",
+  "block.simplestationsminer.miner": "Mining station",
+  "item.simplestationsminer.miner_drill": "Drill",
+
+  "simplestationsminer.configuration.title": "Simple Stations Miner Configs",
+  "simplestationsminer.configuration.section.simplestationsminer.common.toml": "Simple Stations Miner Configs",
+  "simplestationsminer.configuration.section.simplestationsminer.common.toml.title": "Simple Stations Miner Configs",
+  "simplestationsminer.configuration.items": "Item list",
+  "screen.simplestationsminer.miner": "Mining station",
+  "screen.simplestationsminer.recipes": "Miner recipes",
+  "screen.simplestationsminer.fuel": "Energy",
+  "screen.simplestationsminer.coolant": "Coolant",
+  "screen.simplestationsminer.catalysis": "Catalysis",
+  "screen.simplestationsminer.filter": "Ore block to mine",
+  "screen.simplestationsminer.depthError": "Altitude is too high"
+}

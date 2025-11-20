@@ -1,0 +1,8 @@
+{
+  "parent": "simplestationsminer:custom/miner_cran",
+  "textures": {
+    "all": "simplestationsminer:block/miner",
+    "1": "simplestationsminer:block/miner"
+  },
+  "render_type": "cutout"
+}

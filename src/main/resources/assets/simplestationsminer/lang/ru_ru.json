@@ -1,0 +1,17 @@
+{
+  "itemGroup.simplestationsminer": "Простые Шахтёрские Станции",
+  "block.simplestationsminer.miner": "Шахтёрская станция",
+  "item.simplestationsminer.miner_drill": "Бур",
+
+  "simplestationsminer.configuration.title": "simplestationsminer Configs",
+  "simplestationsminer.configuration.section.simplestationsminer.common.toml": "simplestationsminer Configs",
+  "simplestationsminer.configuration.section.simplestationsminer.common.toml.title": "simplestationsminer Configs",
+  "simplestationsminer.configuration.items": "Список предметов",
+  "screen.simplestationsminer.miner": "Шахтёрская станция",
+  "screen.simplestationsminer.recipes": "Рецепты шахты",
+  "screen.simplestationsminer.fuel": "Энергия",
+  "screen.simplestationsminer.coolant": "Охлаждение",
+  "screen.simplestationsminer.catalysis": "Катализатор",
+  "screen.simplestationsminer.filter": "Руда для выкапывания",
+  "screen.simplestationsminer.depthError": "Станция слишком высоко"
+}
