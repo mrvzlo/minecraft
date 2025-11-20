@@ -170,20 +170,20 @@ public class MinerBlockEntity extends ModContainer {
     }
 
     @Override
-    protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-        super.saveAdditional(tag, registries);
+    protected void saveAdditional(CompoundTag tag) {
+        super.saveAdditional(tag);
         saveAll(tag);
     }
 
     @Override
-    public void handleUpdateTag(CompoundTag tag, HolderLookup.Provider registries) {
-        super.handleUpdateTag(tag, registries);
+    public void handleUpdateTag(CompoundTag tag) {
+        super.handleUpdateTag(tag);
         saveAll(tag);
     }
 
     @Override
-    public void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-        super.loadAdditional(tag, registries);
+    public void load(CompoundTag tag) {
+        super.load(tag);
         type = getCurrentFilter();
         fuel = new EnergyStorage(Config.FUEL_CAPACITY.get(), Config.FUEL_CAPACITY.get(), Config.FUEL_CAPACITY.get(),
                 tag.getInt("fuel"));

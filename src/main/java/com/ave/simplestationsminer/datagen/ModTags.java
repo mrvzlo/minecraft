@@ -10,6 +10,6 @@ import net.minecraft.world.item.Item;
 public class ModTags {
     public static class Items {
         public static final TagKey<Item> MINEABLE_TAG = TagKey.create(Registries.ITEM,
-                ResourceLocation.fromNamespaceAndPath(SimpleStationsMiner.MODID, "mineable"));
+                new ResourceLocation(SimpleStationsMiner.MODID, "mineable"));
     }
 }

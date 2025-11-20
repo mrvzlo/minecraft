@@ -23,6 +23,7 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.ModContainer;
+import net.neoforged.fml.ModLoadingContext;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
@@ -71,7 +72,7 @@ public class SimpleStationsMiner {
                                         }).build());
 
         public SimpleStationsMiner(IEventBus modEventBus, ModContainer modContainer) {
-                modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
+                ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.SPEC);
                 BLOCKS.register(modEventBus);
                 ITEMS.register(modEventBus);
                 CREATIVE_MODE_TABS.register(modEventBus);

@@ -16,8 +16,7 @@ public class ModSounds {
         public static final Supplier<SoundEvent> WORK_SOUND = SOUND_EVENTS.register(
                         "work_sound",
                         () -> SoundEvent
-                                        .createVariableRangeEvent(ResourceLocation
-                                                        .fromNamespaceAndPath(SimpleStationsMiner.MODID,
-                                                                        "work_sound")));
+                                        .createVariableRangeEvent(new ResourceLocation(SimpleStationsMiner.MODID,
+                                                        "work_sound")));
 
 }

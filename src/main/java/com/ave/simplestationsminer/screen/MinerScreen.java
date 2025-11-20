@@ -18,7 +18,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 
 public class MinerScreen extends AbstractContainerScreen<MinerMenu> {
-    private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(SimpleStationsMiner.MODID,
+    private static final ResourceLocation TEXTURE = new ResourceLocation(SimpleStationsMiner.MODID,
             "textures/gui/base_miner_gui.png");
 
     public MinerScreen(MinerMenu menu, Inventory inventory, Component title) {

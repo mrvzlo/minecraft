@@ -1,6 +1,5 @@
 package com.ave.simplestationsminer.blockentity.handlers;
 
-import com.ave.simplestationsminer.SimpleStationsMiner;
 import com.ave.simplestationsminer.blockentity.MinerBlockEntity;
 import com.ave.simplestationsminer.blockentity.ModContainer;
 import com.ave.simplestationsminer.datagen.ModTags;

@@ -34,8 +34,8 @@ public class ModItemTagProvider extends ItemTagsProvider {
                 .addTag(ItemTags.EMERALD_ORES)
                 .addTag(ItemTags.COPPER_ORES)
                 .addTag(ItemTags.REDSTONE_ORES)
-                .addOptionalTag(ResourceLocation.fromNamespaceAndPath("c", "ores"))
-                .addOptionalTag(ResourceLocation.fromNamespaceAndPath("forge", "ores"));
+                .addOptionalTag(new ResourceLocation("c", "ores"))
+                .addOptionalTag(new ResourceLocation("forge", "ores"));
 
     }
 }
