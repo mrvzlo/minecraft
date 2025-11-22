@@ -19,6 +19,7 @@ public class Config {
 
         public static ModConfigSpec.IntValue FUEL_PER_COAL;
         public static ModConfigSpec.IntValue FUEL_CAPACITY;
+        public static ModConfigSpec.IntValue MAX_Y;
 
         static {
                 setupGenerationConfig();
@@ -44,6 +45,9 @@ public class Config {
                 FUEL_CAPACITY = BUILDER
                                 .comment("How much RF can be stored\n Default: 480000")
                                 .defineInRange("fuel_max", 480000, 1, 2_000_000_000);
+                MAX_Y = BUILDER
+                                .comment("Highest Y for miner\n Default: 20")
+                                .defineInRange("max_y", 20, -1000, 1000);
         }
 
         @SubscribeEvent

@@ -10,6 +10,7 @@
   "simplestationsminer.configuration.max_catalyst": "Лимит катализаторов",
   "simplestationsminer.configuration.fuel_rf": "Количество RF с 1 угля",
   "simplestationsminer.configuration.fuel_max": "Лимит хранения RF",
+  "simplestationsminer.configuration.max_y": "Максимальная высота",
 
   "screen.simplestationsminer.miner": "Шахтёрская станция",
   "screen.simplestationsminer.recipes": "Рецепты шахты",

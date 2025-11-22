@@ -90,7 +90,7 @@ public class MinerScreen extends AbstractContainerScreen<MinerMenu> {
         UIBlocks.PROGRESS_BAR.drawProgressToRight(graphics, x, y, progressPart, 0xFFCCFEDD);
 
         if (miner.invalidDepth) {
-            UIBlocks.ERROR.drawText(graphics, x, y, font, borderColor, "Y > 20");
+            UIBlocks.ERROR.drawText(graphics, x, y, font, borderColor, "Y > " + Config.MAX_Y);
             return;
         }
 

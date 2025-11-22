@@ -7,6 +7,7 @@ import com.ave.simplestationsminer.SimpleStationsMiner;
 import com.ave.simplestationsminer.blockentity.MinerBlockEntity;
 import com.ave.simplestationsminer.datagen.ModTags;
 import com.ave.simplestationsminer.screen.MinerScreen;
+import com.ave.simplestationsminer.uihelpers.UIBlocks;
 import com.google.common.collect.Lists;
 
 import mezz.jei.api.IModPlugin;
@@ -53,6 +54,7 @@ public class JEIModPlugin implements IModPlugin {
 
     @Override
     public void registerGuiHandlers(IGuiHandlerRegistration registration) {
-        registration.addRecipeClickArea(MinerScreen.class, 156, 37, 8, 12, MinerRecipeCategory.REGULAR);
+        registration.addRecipeClickArea(MinerScreen.class, UIBlocks.OUT_SLOT.left, UIBlocks.OUT_SLOT.top,
+                UIBlocks.OUT_SLOT.width, UIBlocks.OUT_SLOT.height, MinerRecipeCategory.REGULAR);
     }
 }

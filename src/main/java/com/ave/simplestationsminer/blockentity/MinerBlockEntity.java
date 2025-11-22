@@ -29,7 +29,7 @@ public class MinerBlockEntity extends ModContainer {
     public MinerBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.MINER_BLOCK_ENTITY.get(), pos, state, 5);
         if (pos != null)
-            invalidDepth = pos.getY() > 20;
+            invalidDepth = pos.getY() > Config.MAX_Y.get();
         fuel = new EnergyStorage(Config.FUEL_CAPACITY.get());
     }
 
