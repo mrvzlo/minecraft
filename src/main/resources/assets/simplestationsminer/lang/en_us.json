@@ -4,12 +4,12 @@
   "item.simplestationsminer.miner_drill": "Drill",
 
   "simplestationsminer.configuration.title": "Configs",
-  "simplestationsminer.configuration.consume": "RF consume per tick",
+  "simplestationsminer.configuration.consume": "Energy consume per tick",
   "simplestationsminer.configuration.work_time": "Work time in ticks",
   "simplestationsminer.configuration.max_coolant": "Max coolant storage",
   "simplestationsminer.configuration.max_catalyst": "Max catalyst storage",
-  "simplestationsminer.configuration.fuel_rf": "RF gain from signle coal",
-  "simplestationsminer.configuration.fuel_max": "Energy storage capacity in RF",
+  "simplestationsminer.configuration.fuel_rf": "Energy gain from signle coal",
+  "simplestationsminer.configuration.fuel_max": "Energy storage capacity",
 
   "screen.simplestationsminer.miner": "Mining station",
   "screen.simplestationsminer.recipes": "Miner recipes",

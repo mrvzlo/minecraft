@@ -4,12 +4,12 @@
   "item.simplestationsminer.miner_drill": "Бур",
 
   "simplestationsminer.configuration.title": "Настройки",
-  "simplestationsminer.configuration.consume": "Потребление RF в тик",
+  "simplestationsminer.configuration.consume": "Потребление энергии в тик",
   "simplestationsminer.configuration.work_time": "Время работы в тиках",
   "simplestationsminer.configuration.max_coolant": "Лимит охлаждения",
   "simplestationsminer.configuration.max_catalyst": "Лимит катализаторов",
-  "simplestationsminer.configuration.fuel_rf": "Количество RF с 1 угля",
-  "simplestationsminer.configuration.fuel_max": "Лимит хранения RF",
+  "simplestationsminer.configuration.fuel_rf": "Количество энергии с 1 угля",
+  "simplestationsminer.configuration.fuel_max": "Лимит хранения энергии",
 
   "screen.simplestationsminer.miner": "Шахтёрская станция",
   "screen.simplestationsminer.recipes": "Рецепты шахты",

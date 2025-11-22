@@ -14,7 +14,8 @@
   "environment": "*",
   "entrypoints": {
     "main": ["com.ave.simplestationsminer.SimpleStationsMiner"],
-    "client": ["com.ave.simplestationsminer.SimpleStationsMinerClient"]
+    "client": ["com.ave.simplestationsminer.SimpleStationsMinerClient"],
+    "rei_client": ["com.ave.simplestationsminer.recipes.ModREIClient"]
   },
   "mixins": ["simplestationsminer.mixins.json"],
   "depends": {

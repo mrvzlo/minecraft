@@ -34,24 +34,20 @@ public class MinerScreen extends HandledScreen<MinerScreenHandler> {
         int startY = (height - backgroundHeight) / 2;
 
         if (UIBlocks.FUEL_BAR.isHovered(mouseX - startX, mouseY - startY)) {
-            String fuelPart = NumToString.parse(handler.props.getFuel(), "RF / ")
-                    + NumToString.parse(Config.FUEL_CAPACITY, "RF");
-            List<Text> fuelText = Arrays.asList(Text.translatable("screen.simplestationsminer.fuel"),
-                    Text.literal(fuelPart));
+            String fuelPart = handler.props.getFuel() + " / " + Config.FUEL_CAPACITY;
+            List<Text> fuelText = Arrays.asList(Text.translatable("screen.simplestationsminer.fuel"), Text.literal(fuelPart));
             dc.drawTooltip(textRenderer, fuelText, startX, startY);
         }
 
         if (UIBlocks.COOL_BAR.isHovered(mouseX - startX, mouseY - startY)) {
             String coolantPart = handler.props.getCoolant() + " / " + Config.MAX_COOLANT;
-            List<Text> coolantText = Arrays.asList(Text.translatable("screen.simplestationsminer.coolant"),
-                    Text.literal(coolantPart));
+            List<Text> coolantText = Arrays.asList(Text.translatable("screen.simplestationsminer.coolant"), Text.literal(coolantPart));
             dc.drawTooltip(textRenderer, coolantText, mouseX, mouseY);
         }
 
         if (UIBlocks.CATA_BAR.isHovered(mouseX - startX, mouseY - startY)) {
             String redstonePart = handler.props.getRedstone() + " / " + Config.MAX_CATALYST;
-            List<Text> redstoneText = Arrays.asList(Text.translatable("screen.simplestationsminer.catalysis"),
-                    Text.literal(redstonePart));
+            List<Text> redstoneText = Arrays.asList(Text.translatable("screen.simplestationsminer.catalysis"), Text.literal(redstonePart));
             dc.drawTooltip(textRenderer, redstoneText, mouseX, mouseY);
         }
 

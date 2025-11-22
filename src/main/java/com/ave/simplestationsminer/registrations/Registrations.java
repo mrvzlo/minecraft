@@ -5,6 +5,7 @@ import com.ave.simplestationsminer.blockentity.MinerBlock;
 import com.ave.simplestationsminer.blockentity.MinerBlockEntity;
 import com.ave.simplestationsminer.blockentity.partblock.PartBlock;
 import com.ave.simplestationsminer.blockentity.partblock.PartBlockEntity;
+import com.ave.simplestationsminer.recipes.MinerRecipe;
 import com.ave.simplestationsminer.screen.MinerScreen;
 import com.ave.simplestationsminer.screen.MinerScreenHandler;
 import com.google.common.base.Function;
@@ -21,6 +22,8 @@ import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
+import net.minecraft.recipe.RecipeSerializer;
+import net.minecraft.recipe.RecipeType;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
@@ -94,4 +97,17 @@ public class Registrations {
                 Identifier identifier = Identifier.of(SimpleStationsMiner.MOD_ID, id);
                 return Registry.register(Registries.SOUND_EVENT, identifier, SoundEvent.of(identifier));
         }
+
+        public static final RecipeSerializer<MinerRecipe> RECIPE_SERIALIZER = Registry.register(
+                        Registries.RECIPE_SERIALIZER, Identifier.of(SimpleStationsMiner.MOD_ID, "miner"),
+                        new MinerRecipe.Serializer());
+
+        public static final RecipeType<MinerRecipe> RECIPE_TYPE = Registry.register(
+                        Registries.RECIPE_TYPE, Identifier.of(SimpleStationsMiner.MOD_ID, "miner"), new RecipeType<MinerRecipe>() {
+                                @Override
+                                public String toString() {
+                                        return "miner";
+                                }
+                        });
+
 }
