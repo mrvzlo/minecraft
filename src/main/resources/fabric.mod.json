@@ -13,17 +13,9 @@
   "icon": "assets/simplestationsminer/icon.png",
   "environment": "*",
   "entrypoints": {
-    "main": ["com.ave.simplestationsminer.SimpleStationsMiner"],
-    "client": ["com.ave.simplestationsminer.SimpleStationsMinerClient"],
-    "fabric-datagen": ["com.ave.simplestationsminer.SimpleStationsMinerDataGenerator"]
+    "main": ["com.ave.simplestationsminer.SimpleStationsMiner"]
   },
-  "mixins": [
-    "simplestationsminer.mixins.json",
-    {
-      "config": "simplestationsminer.client.mixins.json",
-      "environment": "client"
-    }
-  ],
+  "mixins": ["simplestationsminer.mixins.json"],
   "depends": {
     "fabricloader": ">=0.18.1",
     "minecraft": "~1.21.1",

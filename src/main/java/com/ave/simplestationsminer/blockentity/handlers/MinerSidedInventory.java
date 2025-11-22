@@ -1,5 +1,6 @@
 package com.ave.simplestationsminer.blockentity.handlers;
 
+import com.ave.simplestationsminer.SimpleStationsMiner;
 import com.ave.simplestationsminer.blockentity.MinerBlockEntity;
 import com.ave.simplestationsminer.registrations.Registrations;
 
@@ -49,6 +50,8 @@ public interface MinerSidedInventory extends SidedInventory {
 
     @Override
     default void setStack(int slot, ItemStack stack) {
+        SimpleStationsMiner.LOGGER.info("Put " + stack + " in " + slot + " " + stack.isIn(Registrations.MINEABLE_TAG));
+
         getItems().set(slot, stack);
         if (stack.getCount() > getMaxCountPerStack())
             stack.setCount(getMaxCountPerStack());

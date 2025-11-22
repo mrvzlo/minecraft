@@ -12,6 +12,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.inventory.Inventories;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -103,7 +104,7 @@ public class MinerBlockEntity extends BlockEntity implements ExtendedScreenHandl
 
         coolant--;
         redstone--;
-        inventory.add(OUTPUT_SLOT, new ItemStack(type, outputSize));
+        inventory.set(OUTPUT_SLOT, new ItemStack(type, outputSize));
     }
 
     private boolean getWorking(ItemStack slot) {
@@ -219,6 +220,7 @@ public class MinerBlockEntity extends BlockEntity implements ExtendedScreenHandl
         redstone = nbt.getInt("redstone");
         speed = 1f / getSpeedMod();
         outputSize = getOutputSize();
+        Inventories.readNbt(nbt, inventory, registryLookup);
     }
 
     @Override
@@ -227,6 +229,7 @@ public class MinerBlockEntity extends BlockEntity implements ExtendedScreenHandl
         nbt.putFloat("progress", progress);
         nbt.putInt("coolant", coolant);
         nbt.putInt("redstone", redstone);
+        Inventories.writeNbt(nbt, inventory, registryLookup);
         super.writeNbt(nbt, registryLookup);
     }
 

@@ -1,6 +1,5 @@
 package com.ave.simplestationsminer.screen;
 
-import com.ave.simplestationsminer.SimpleStationsMinerClient;
 import com.ave.simplestationsminer.blockentity.MinerBlockEntity;
 import com.ave.simplestationsminer.registrations.Registrations;
 import com.ave.simplestationsminer.uihelpers.UIBlocks;
@@ -10,6 +9,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.screen.ArrayPropertyDelegate;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
@@ -25,23 +25,31 @@ public class MinerScreenHandler extends ScreenHandler {
     }
 
     public MinerScreenHandler(int syncId, PlayerInventory playerInventory, BlockEntity blockEntity, PropertyDelegate arrayPropertyDelegate) {
-        super(SimpleStationsMinerClient.MINER_SCREEN_HANDLER, syncId);
+        super(Registrations.MINER_SCREEN_HANDLER, syncId);
         this.miner = (MinerBlockEntity) blockEntity;
         this.inventory = (Inventory) blockEntity;
-
-        addSlot(new Slot(inventory, 0, 80, 35) {
-            @Override
-            public int getMaxItemCount() {
-                return 1;
-            }
-        });
 
         addPlayerInventory(playerInventory);
         addPlayerHotbar(playerInventory);
 
-        addSlot(new Slot(inventory, MinerBlockEntity.OUTPUT_SLOT, UIBlocks.OUT_SLOT.left, UIBlocks.OUT_SLOT.top));
+        addSlot(new Slot(inventory, MinerBlockEntity.TYPE_SLOT, UIBlocks.FILTER_SLOT.left, UIBlocks.FILTER_SLOT.top) {
+            @Override
+            public int getMaxItemCount() {
+                return 1;
+            }
+
+            @Override
+            public boolean canInsert(ItemStack stack) {
+                return stack.getItem().equals(Items.STONE);
+            }
+        });
+        addSlot(new Slot(inventory, MinerBlockEntity.OUTPUT_SLOT, UIBlocks.OUT_SLOT.left, UIBlocks.OUT_SLOT.top) {
+            @Override
+            public boolean canInsert(ItemStack stack) {
+                return false;
+            }
+        });
         addSlot(new Slot(inventory, MinerBlockEntity.FUEL_SLOT, UIBlocks.FUEL_SLOT.left, UIBlocks.FUEL_SLOT.top));
-        addSlot(new Slot(inventory, MinerBlockEntity.TYPE_SLOT, UIBlocks.FILTER_SLOT.left, UIBlocks.FILTER_SLOT.top));
         addSlot(new Slot(inventory, MinerBlockEntity.COOLANT_SLOT, UIBlocks.COOL_SLOT.left, UIBlocks.COOL_SLOT.top));
         addSlot(new Slot(inventory, MinerBlockEntity.REDSTONE_SLOT, UIBlocks.CATA_SLOT.left, UIBlocks.CATA_SLOT.top));
 

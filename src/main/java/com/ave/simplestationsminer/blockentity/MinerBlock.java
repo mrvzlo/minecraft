@@ -1,5 +1,7 @@
 package com.ave.simplestationsminer.blockentity;
 
+import java.util.List;
+
 import org.jetbrains.annotations.Nullable;
 
 import com.ave.simplestationsminer.SimpleStationsMiner;
@@ -17,7 +19,10 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.property.DirectionProperty;
+import net.minecraft.state.property.Properties;
 import net.minecraft.util.ActionResult;
+import net.minecraft.util.ItemScatterer;
+import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -25,16 +30,17 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldView;
 
 public class MinerBlock extends BlockWithEntity {
-    public static final DirectionProperty FACING = DirectionProperty.of("facing");
+    public static final DirectionProperty FACING = Properties.HORIZONTAL_FACING;
+    public static final MapCodec<MinerBlock> CODEC = MinerBlock.createCodec(MinerBlock::new);
 
     public MinerBlock(Settings s) {
         super(s);
-        setDefaultState(getDefaultState().with(FACING, Direction.NORTH));
+        // setDefaultState(getDefaultState().with(FACING, Direction.NORTH));
     }
 
     @Override
-    protected MapCodec<BlockWithEntity> getCodec() {
-        return createCodec(MinerBlock::new);
+    protected MapCodec<? extends BlockWithEntity> getCodec() {
+        return CODEC;
     }
 
     @Override
@@ -61,6 +67,14 @@ public class MinerBlock extends BlockWithEntity {
     // }
 
     @Override
+    public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
+        if (world.getBlockEntity(pos) instanceof MinerBlockEntity be) {
+            player.openHandledScreen(be);
+        }
+        return ActionResult.SUCCESS;
+    }
+
+    @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
         return (lvl, pos, st, be) -> {
             if (be instanceof MinerBlockEntity miner)
@@ -75,16 +89,14 @@ public class MinerBlock extends BlockWithEntity {
                 BlockPos p = pos.offset(Direction.NORTH, dz).offset(Direction.EAST, dx);
                 if (p.equals(pos) || world.getBlockState(p).isAir())
                     continue;
-                SimpleStationsMiner.LOGGER.info("NO");
                 return false;
             }
-
-        SimpleStationsMiner.LOGGER.info("YES");
         return true;
     }
 
     @Override
-    public void onPlaced(World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack itemStack) {
+    public void onPlaced(World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer,
+            ItemStack itemStack) {
         if (world.isClient)
             return;
 
@@ -110,22 +122,23 @@ public class MinerBlock extends BlockWithEntity {
 
         BlockEntity controller = world.getBlockEntity(pos);
         if (controller instanceof MinerBlockEntity miner) {
-            // Containers.dropItemStack(world, pos.getX(), pos.getY(), pos.getZ(), new ItemStack(Registrations.MINER_BLOCK, 1));
-            // Containers.dropContents(world, pos, miner.inventory.getAsList());
+            ItemScatterer.spawn(world, pos, miner.getItems());
+            if (!player.isCreative())
+                ItemScatterer.spawn(world, pos.getX(), pos.getY(), pos.getZ(), new ItemStack(Registrations.MINER_BLOCK, 1));
         }
 
         super.onBreak(world, pos, state, player);
 
         for (int dx = -1; dx <= 1; dx++)
             for (int dz = -1; dz <= 1; dz++) {
-                BlockPos p = pos.offset(Direction.NORTH, dz).offset(Direction.EAST, dx);
+                BlockPos part = pos.offset(Direction.NORTH, dz).offset(Direction.EAST, dx);
 
-                if (p.equals(pos))
+                if (part.equals(pos))
                     continue;
 
-                BlockEntity be = world.getBlockEntity(p);
+                BlockEntity be = world.getBlockEntity(part);
                 if (be instanceof PartBlockEntity)
-                    world.removeBlock(p, false);
+                    world.removeBlock(part, false);
             }
         return state;
     }
